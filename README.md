@@ -20,7 +20,15 @@
 
 df2[df2.columns].hist(figsize=(16,8));
 
+for x in ['windspeed']:
+    q75,q25 = np.percentile(BIKE.loc[:,x],[75,25])
+    intr_qr = q75-q25
 
+    max = q75+(1.5*intr_qr)
+    min = q25-(1.5*intr_qr)
+
+    BIKE.loc[BIKE[x] < min,x] = np.nan
+    BIKE.loc[BIKE[x] > max,x] = np.nan
 
 
 
